@@ -624,3 +624,136 @@ CODE NO :- 25
         else:
             buz.off()
         sleep(1)
+
+[26]|[Z] LANGUAGE:- "C"
+
+HARDWARE BOARD:-"Arduino Uno"
+
+PROBLEM STATEMENT:- Soil moisture sensor with LED.
+
+CODE NO :- 26
+
+    int sensor=A0;
+    int led=13;
+    
+    void setup()
+    {
+        pinMode(led,OUTPUT);
+    }
+    
+    void loop()
+    {
+        int val=analogRead(sensor);
+    
+        if(val<400)
+        digitalWrite(led,HIGH);
+        else
+        digitalWrite(led,LOW);
+    }
+
+
+
+[27]|[AA] LANGUAGE:- "C"
+
+HARDWARE BOARD:-"ESP32"
+
+PROBLEM STATEMENT:- WiFi connection test.
+
+CODE NO :- 27
+
+    #include <WiFi.h>
+    
+    const char* ssid = "your_SSID";
+    const char* password = "your_PASSWORD";
+    
+    void setup()
+    {
+        Serial.begin(115200);
+        WiFi.begin(ssid, password);
+    
+        while (WiFi.status() != WL_CONNECTED)
+        {
+            delay(1000);
+            Serial.println("Connecting...");
+        }
+    
+        Serial.println("Connected to WiFi");
+    }
+    
+    void loop()
+    {
+    }
+
+
+
+[28]|[AB] LANGUAGE:- "Python"
+
+HARDWARE BOARD:-"Raspberry Pi 4/5"
+
+PROBLEM STATEMENT:- Motion sensor (PIR) with LED.
+
+CODE NO :- 28
+
+    from gpiozero import MotionSensor, LED
+    from time import sleep
+    
+    pir = MotionSensor(4)
+    led = LED(18)
+    
+    while True:
+        pir.wait_for_motion()
+        led.on()
+        print("Motion Detected")
+        sleep(2)
+        led.off()
+
+
+
+[29]|[AC] LANGUAGE:- "C"
+
+HARDWARE BOARD:-"Arduino Uno"
+
+PROBLEM STATEMENT:- Temperature-based fan control (LM35 + DC motor).
+
+CODE NO :- 29
+    
+    int temp=A0;
+    int motor=9;
+    
+    void setup()
+    {
+        pinMode(motor,OUTPUT);
+    }
+    
+    void loop()
+    {
+        int val=analogRead(temp);
+        float t=val*0.488;
+    
+        if(t>30)
+        digitalWrite(motor,HIGH);
+        else
+        digitalWrite(motor,LOW);
+    }
+
+
+
+[30]|[AD] LANGUAGE:- "Python"
+
+HARDWARE BOARD:-"Raspberry Pi 4/5"
+
+PROBLEM STATEMENT:- Button press counter.
+
+CODE NO :- 30
+    
+    from gpiozero import Button
+    from time import sleep
+    
+    btn = Button(17)
+    count = 0
+    
+    while True:
+        btn.wait_for_press()
+        count += 1
+        print("Button pressed:", count)
+        sleep(0.5)
